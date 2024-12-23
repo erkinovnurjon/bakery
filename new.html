@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bunyod Non</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #fff9e6;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      header {
+        background-color: #fff9e6;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+      .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: #f39200;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: #80653b;
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .menu-toggle.active {
+        color: #f39200;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #fff9e6;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          z-index: 10;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+      .hero {
+        background-image: url("/assets/images/nonlar.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        background-attachment: fixed;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      .btn {
+        display: inline-block;
+        background-color: #f39200;
+        padding: 10px 20px;
+        margin-top: 50px;
+        border: 0;
+        border-radius: 5px;
+      }
+      .btn a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #a17a40;
+        color: #f39200;
+        transition: all ease 0.5s;
+      }
+      .section {
+        padding: 80px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #8b4513;
+      }
+      .products {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .product {
+        width: calc(33.333% - 20px);
+        margin-bottom: 40px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .product:hover {
+        transform: translateY(-5px);
+      }
+      .product img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        background-position: top;
+      }
+      .product-info {
+        padding: 20px;
+      }
+      .product-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #8b4513;
+      }
+      .product-description {
+        font-size: 14px;
+        color: #666;
+      }
+      .features {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .feature {
+        width: calc(33.333% - 20px);
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .feature img {
+        width: 380px;
+        height: 200px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        object-fit: cover;
+      }
+      .feature-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #8b4513;
+      }
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #8b4513;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .form-group textarea {
+        height: 150px;
+      }
+      footer {
+        background-color: #753c14;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+      }
+      .contact-form-wrapper {
+        min-width: 300px;
+      }
+      .contact-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .contact-card {
+        width: 100%;
+        flex: 1;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        margin-bottom: 20px;
+      }
+      input {
+        outline: none;
+      }
+      textarea {
+        outline: none;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .btn-form {
+        display: inline-block;
+        background-color: #f39200;
+        padding: 10px 20px;
+        border: 0;
+        width: 100%;
+        border-radius: 5px;
+        color: #fff;
+      }
+      .btn:hover {
+        background-color: #a17a40;
+        color: #f39200;
+        transition: all ease 0.5s;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .footer {
+        background-color: #533f20;
+        color: white;
+        padding: 40px 0 20px;
+        font-family: Arial, sans-serif;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 40px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+
+      .footer-section h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        text-align: start;
+        margin-bottom: 20px;
+      }
+
+      .contact-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .contact-list li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .social-link {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: color 0.3s;
+      }
+
+      .social-link:hover {
+        color: #a17a40;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        margin-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .contact-list a {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .products {
+          display: block;
+        }
+        .feature-title {
+          text-align: center;
+        }
+        .features {
+          display: block;
+        }
+        h3 {
+          text-align: center;
+        }
+        .contact-wrapper {
+          flex-direction: column;
+        }
+        .footer-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .contact-list li {
+          justify-content: center;
+        }
+
+        .social-links {
+          align-items: center;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .product {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        .feature {
+          width: 100%;
+        }
+        .feature img {
+          width: 200px;
+        }
+
+        .contact-card {
+          width: 100%;
+        }
+
+        .contact-form {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">
+          <img src="/assets/images/logo.png" alt="4" width="64" height="64" />
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#home">Bosh sahifa</a>
+          <a href="#products">Mahsulotlar</a>
+          <a href="#features">Afzalliklar</a>
+          <a href="#contact">Aloqa</a>
+        </div>
+      </nav>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Xorazm nonlari keng assortimentda</h1>
+        <p>
+          Хоразм нонларини Тошкент шахрида биринчилардан булиб танитканларданмиз
+          2007 йилдан бошлаб пойтахтда иш фаолиятини юргизамиз. Олий сифат ва
+          энг бетакрор там бизнинг олий максадимиз ва вазифамиз.
+        </p>
+        <button class="btn">
+          <a href="#products">Mahsulotlarni ko'rish</a>
+        </button>
+      </div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="container">
+        <h2 class="section-title">Bizning mahsulotlar</h2>
+        <div class="products">
+          <div class="product">
+            <img src="/assets/images/non.jpg" alt="Non" />
+            <div class="product-info">
+              <h3 class="product-title">Qatlama Patir</h3>
+              <p class="product-description">Yumshoq va mazali qatlama patir</p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non2.jpg" alt="Bulochka" />
+            <div class="product-info">
+              <h3 class="product-title">Shirin bulochka</h3>
+              <p class="product-description">
+                Mazali krem bilan to'ldirilgan bulochka
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non3.jpg" alt="Pirog" />
+            <div class="product-info">
+              <h3 class="product-title">Mevali pirog</h3>
+              <p class="product-description">
+                Mavsumiy mevalar bilan tayyorlangan pirog
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+        </div>
+        <div class="products">
+          <div class="product">
+            <img src="/assets/images/non4.jpg" alt="Non" />
+            <div class="product-info">
+              <h3 class="product-title">Qatlama Patir</h3>
+              <p class="product-description">Yumshoq va mazali qatlama patir</p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non5.jpg" alt="Bulochka" />
+            <div class="product-info">
+              <h3 class="product-title">Shirin bulochka</h3>
+              <p class="product-description">
+                Mazali krem bilan to'ldirilgan bulochka
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non6.jpg" alt="Pirog" />
+            <div class="product-info">
+              <h3 class="product-title">Mevali pirog</h3>
+              <p class="product-description">
+                Mavsumiy mevalar bilan tayyorlangan pirog
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+        </div>
+        <div class="products">
+          <div class="product">
+            <img src="/assets/images/non7.jpg" alt="Non" />
+            <div class="product-info">
+              <h3 class="product-title">Qatlama Patir</h3>
+              <p class="product-description">Yumshoq va mazali qatlama patir</p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non8.jpg" alt="Bulochka" />
+            <div class="product-info">
+              <h3 class="product-title">Shirin bulochka</h3>
+              <p class="product-description">
+                Mazali krem bilan to'ldirilgan bulochka
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+          <div class="product">
+            <img src="/assets/images/non9.jpg" alt="Pirog" />
+            <div class="product-info">
+              <h3 class="product-title">Mevali pirog</h3>
+              <p class="product-description">
+                Mavsumiy mevalar bilan tayyorlangan pirog
+              </p>
+              <p class="product-sale">15 000 so'm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="section-title">Nima uchun bizni tanlashadi</h2>
+        <div class="features">
+          <div class="feature">
+            <img src="/assets/images/non11.jpg" alt="Sifat" />
+            <h3 class="feature-title">Yuqori sifat</h3>
+            <p>Faqat eng sifatli ingredientlardan foydalanamiz.</p>
+          </div>
+          <div class="feature">
+            <img src="/assets/images/non10.jpg" alt="Yangilik" />
+            <h3 class="feature-title">Har doim yangi</h3>
+            <p>Mahsulotlarimiz har kuni yangi tayyorlanadi</p>
+          </div>
+          <div class="feature">
+            <img src="/assets/images/non11.jpg" alt="Yetkazib berish" />
+            <h3 class="feature-title">To'y va Tadbirlarga buyurtma olamiz</h3>
+            <p>Buyurtmangizni tez va issiq holda yetkazib beramiz</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2 class="section-title">Biz bilan bog'laning</h2>
+      <div class="container contact-wrapper">
+        <div class="contact-card">
+          <iframe
+            style="width: 100%; height: 400px"
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Afba955f5a03926a440c193292eb645f09e501e4f0a6d54ffd3c14a82b7515290&amp;source=constructor"
+            frameborder="0"
+            title="webase.uz location"
+          ></iframe>
+        </div>
+        <div class="contact-form-wrapper">
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Ismingiz</label>
+              <input
+                type="text"
+                placeholder="Javlon"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Elektron pochtangiz</label>
+              <input
+                type="email"
+                placeholder="javlon@gmail.com"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="message">Xabaringiz</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn-form">Yuborish</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Biz haqimizda</h3>
+            <p>
+              Shirin Nonvoyxona - mazali non va shirinliklarning eng yaxshi
+              manzili
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Bog'lanish</h3>
+            <ul class="contact-list">
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+998972115117">+998 97 2115117</a>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                Qoratosh ko'chasi, 106
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:info@shirinnonvoyxona.uz"
+                  >info@shirinnonvoyxona.uz</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Ijtimoiy tarmoqlar</h3>
+            <div class="social-links">
+              <a href="https://t.me/xorazm_non_tashkent" class="social-link">
+                <i class="fab fa-instagram"></i>
+                Instagram
+              </a>
+              <a href="https://t.me/xorazm_non_tashkent" class="social-link">
+                <i class="fab fa-telegram"></i>
+                Telegram
+              </a>
+              <a href="https://facebook.com/" class="social-link">
+                <i class="fab fa-facebook"></i>
+                Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2024 Shirin Nonvoyxona. Barcha huquqlar himoyalangan.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>
